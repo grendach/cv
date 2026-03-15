@@ -1,47 +1,21 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-const skills = document.querySelectorAll(".skill-card,.lang-card");
-
-const observer = new IntersectionObserver(entries => {
-
-entries.forEach(entry => {
-
-if(entry.isIntersecting){
-
-const level = entry.target.dataset.level;
-const bar = entry.target.querySelector(".skill-level");
-
-if(bar){
-bar.style.width = level + "%";
-}
-
-}
-
-});
-
-},{threshold:0.5});
-
-skills.forEach(skill => observer.observe(skill));
-
-/* counters */
-
-const counters = document.querySelectorAll(".counter");
+const counters = document.querySelectorAll('.counter');
 
 counters.forEach(counter => {
 
-const update = () => {
+const updateCounter = () => {
 
-const target = +counter.dataset.target;
-const current = +counter.innerText;
+const target = +counter.getAttribute('data-target');
+const count = +counter.innerText;
+const increment = target / 200;
 
-const inc = target / 60;
+if (count < target) {
 
-if(current < target){
+counter.innerText = Math.ceil(count + increment);
+setTimeout(updateCounter, 10);
 
-counter.innerText = Math.ceil(current + inc);
-setTimeout(update,30);
-
-}else{
+} else {
 
 counter.innerText = target;
 
@@ -49,8 +23,53 @@ counter.innerText = target;
 
 };
 
-update();
+updateCounter();
 
 });
+
+const skillCards = document.querySelectorAll('.skill-card, .lang-card');
+
+skillCards.forEach(card => {
+
+const level = card.getAttribute('data-level');
+const bar = card.querySelector('.skill-level');
+
+const observer = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+
+if (entry.isIntersecting) {
+
+bar.style.width = level + '%';
+
+}
+
+});
+
+});
+
+observer.observe(card);
+
+});
+
+const showMoreBtn = document.getElementById("showMoreBtn");
+
+if (showMoreBtn) {
+
+showMoreBtn.addEventListener("click", () => {
+
+const hidden = document.querySelectorAll(".hidden-exp");
+
+hidden.forEach(job => {
+
+job.style.display = "block";
+
+});
+
+showMoreBtn.style.display = "none";
+
+});
+
+}
 
 });
