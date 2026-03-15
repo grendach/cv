@@ -1,14 +1,56 @@
+document.addEventListener("DOMContentLoaded", () => {
 
-function animateSkills() {
-  const skills = document.querySelectorAll('.skill-card, .lang-card');
-  skills.forEach(skill => {
-    const level = skill.getAttribute('data-level');
-    const bar = skill.querySelector('.skill-level');
-    const rect = skill.getBoundingClientRect();
-    if(rect.top < window.innerHeight){
-      bar.style.width = level + '%';
-    }
-  });
+const skills = document.querySelectorAll(".skill-card,.lang-card");
+
+const observer = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+
+if(entry.isIntersecting){
+
+const level = entry.target.dataset.level;
+const bar = entry.target.querySelector(".skill-level");
+
+if(bar){
+bar.style.width = level + "%";
 }
-window.addEventListener('scroll', animateSkills);
-window.addEventListener('load', animateSkills);
+
+}
+
+});
+
+},{threshold:0.5});
+
+skills.forEach(skill => observer.observe(skill));
+
+/* counters */
+
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+
+const update = () => {
+
+const target = +counter.dataset.target;
+const current = +counter.innerText;
+
+const inc = target / 60;
+
+if(current < target){
+
+counter.innerText = Math.ceil(current + inc);
+setTimeout(update,30);
+
+}else{
+
+counter.innerText = target;
+
+}
+
+};
+
+update();
+
+});
+
+});
