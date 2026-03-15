@@ -203,6 +203,29 @@ color:#7cc4b8;
 animation:fadeIn 0.8s ease;
 }
 
+.cert-meta{
+font-size:0.9rem;
+color:#8b949e;
+margin:4px 0;
+}
+
+.verify-link{
+display:inline-block;
+margin-top:10px;
+padding:6px 14px;
+border-radius:6px;
+background:#30363d;
+color:#7cc4b8;
+text-decoration:none;
+font-size:0.9rem;
+transition:0.2s;
+}
+
+.verify-link:hover{
+background:#3b424b;
+color:#58a6ff;
+}
+
 @keyframes fadeIn{
 from{opacity:0; transform:translateY(10px)}
 to{opacity:1; transform:translateY(0)}
