@@ -248,8 +248,3 @@ display:block;
 margin-left:auto;
 margin-right:auto;
 }
-
-.skill-level{
-width:0;
-transition:width 1.2s ease;
-}
